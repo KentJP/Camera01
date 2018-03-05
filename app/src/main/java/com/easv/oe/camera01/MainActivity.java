@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         }
         // create Intent to take a picture
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mFile));
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mFile));
 
         log("file uri = " + Uri.fromFile(mFile).toString());
 
@@ -115,7 +115,6 @@ public class MainActivity extends Activity {
         mImage.setBackgroundColor(Color.RED);
         mImage.setRotation(90);
         mFilename.setText(f.getAbsolutePath());
-        scaleImage();
     }
 
 
@@ -127,8 +126,8 @@ public class MainActivity extends Activity {
         final Display display = getWindowManager().getDefaultDisplay();
         Point p = new Point();
         display.getSize(p);
-        final float screenWidth = p.x/2;
-        final float screenHeight = p.y/2; //m_takeBtn.getHeight());
+        final float screenWidth = p.x;
+        final float screenHeight = p.y-100;
         mImage.setMaxHeight((int)screenHeight);
         mImage.setMaxWidth((int)screenWidth);
     }
