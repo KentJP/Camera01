@@ -22,7 +22,7 @@ import java.util.Date;
 
 public class MainActivity extends Activity {
 
-    private final static String LOGTAG = "Camera01";
+    private final static String LOGTAG = "Camtag";
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     File mFile;
@@ -56,12 +56,16 @@ public class MainActivity extends Activity {
         }
         // create Intent to take a picture
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mFile));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mFile));
 
-        log("file uri = " + Uri.fromFile(mFile).toString());
+        Log.d(LOGTAG, "file uri = " + Uri.fromFile(mFile).toString());
 
-        // start the image capture Intent
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            Log.d(LOGTAG, "camera app will be started");
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+        else
+            Log.d(LOGTAG, "camera app could NOT be started");
 
     }
 
@@ -113,7 +117,7 @@ public class MainActivity extends Activity {
 
         mImage.setImageURI(Uri.fromFile(f));
         mImage.setBackgroundColor(Color.RED);
-        mImage.setRotation(90);
+        //mImage.setRotation(90);
         mFilename.setText(f.getAbsolutePath());
     }
 
